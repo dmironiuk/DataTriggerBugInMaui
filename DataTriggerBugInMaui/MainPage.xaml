@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DataTriggerBugInMaui"
+             x:Class="DataTriggerBugInMaui.MainPage"
+             x:DataType="local:ViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Label Text="Expected behaviour: If is past or NOT current month then the label should be red" />
+
+            <Grid RowDefinitions="*,*" ColumnDefinitions="Auto,*">
+                <Switch Grid.Row="0" Grid.Column="0" IsToggled="{Binding IsCurrentMonth}" />
+                <Label Grid.Row="0" Grid.Column="1" Text="IsCurrentMonth" VerticalTextAlignment="Center" />
+
+                <Switch Grid.Row="1" Grid.Column="0" IsToggled="{Binding IsPast}" />
+                <Label Grid.Row="1" Grid.Column="1" Text="IsPast" VerticalTextAlignment="Center" />
+            </Grid>
+
+
+            <Label Text="PLEASE FORMAT ME CORRECTLY!" FontSize="Large" HorizontalOptions="Center">
+                <Label.Triggers>
+                    <DataTrigger TargetType="Label" Binding="{Binding IsCurrentMonth}" Value="False">
+                        <Setter Property="TextColor" Value="Red" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Label" Binding="{Binding IsPast}" Value="True">
+                        <Setter Property="TextColor" Value="Red" />
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <Button
+                Text="Switch both"
+                Clicked="OnSwitchBoth"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+
